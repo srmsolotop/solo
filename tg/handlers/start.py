@@ -16,12 +16,12 @@ from datetime import datetime, timedelta
 router = Router()
 
 
-@router.message()
-async def photo_adder(msg: Message):
-    print("CHAT_ID", msg.chat.id)
-    if msg.photo:
-        photo_id = msg.photo[0].file_id
-        print(photo_id)
+# @router.message()
+# async def photo_adder(msg: Message):
+#     print("CHAT_ID", msg.chat.id)
+#     if msg.photo:
+#         photo_id = msg.photo[0].file_id
+#         print(photo_id)
 
 
 @router.message(Command("start"))
