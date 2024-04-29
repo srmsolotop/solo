@@ -8,6 +8,7 @@ from aiogram.enums.parse_mode import ParseMode
 from aiogram.types import CallbackQuery, InlineKeyboardButton, Message
 from ..shop.shop_stats import shop_statistics_generator
 from aiogram.utils.keyboard import InlineKeyboardBuilder
+from ..shop.announces import button_texter
 
 
 from ...states import AnnounceTextState
@@ -41,7 +42,7 @@ async def admin_edit_shop(callback: CallbackQuery, edit=False):
             builder = InlineKeyboardBuilder()
             announces = await sync_to_async(AnnounceText.objects.filter)(shop=shop)
             if announces:
-                builder.add(InlineKeyboardButton(text="🗣 Анонсы [В разработке]", callback_data=f"admin_editannounce_{shop.id}"))
+                builder.add(InlineKeyboardButton(text="🗣 Анонсы", callback_data=f"admin_editannounce_{shop.id}"))
             builder.add(InlineKeyboardButton(text="⚙ Конфигурации [В раз...]", callback_data=f"admin_editconf_{shop.id}"))
             builder.add(InlineKeyboardButton(text="🛒 Ассортимент", callback_data=f"admin_editassort_{shop.id}"))
             builder.add(InlineKeyboardButton(text=f"Пауза {'🟢' if shop.paused else '⚫'}", callback_data=f"admin_pauseshop_{shop.id}"))
@@ -52,15 +53,6 @@ async def admin_edit_shop(callback: CallbackQuery, edit=False):
                 await callback.message.edit_text("text", reply_markup=builder.as_markup())
     except Exception as e:
         print(e)
-
-
-@router.callback_query(F.data.startswith("admin_editannounce_"))
-async def admin_edit_announce(callback: CallbackQuery):
-    data = callback.data.split("_")
-    try:
-        ...
-    except Exception as e:
-        print()
 
 
 @router.callback_query(F.data.startswith("admin_pauseshop_"))

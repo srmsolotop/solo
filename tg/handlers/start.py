@@ -16,6 +16,14 @@ from datetime import datetime, timedelta
 router = Router()
 
 
+@router.message()
+async def photo_adder(msg: Message):
+    print("CHAT_ID", msg.chat.id)
+    if msg.photo:
+        photo_id = msg.photo[0].file_id
+        print(photo_id)
+
+
 @router.message(Command("start"))
 async def start_command(msg: Message, state: FSMContext, bot: Bot, command: CommandObject):
     user, created = await sync_to_async(TelegramUser.objects.get_or_create)(user_id=msg.from_user.id)
