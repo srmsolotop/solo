@@ -41,6 +41,11 @@ async def admin_edit_shop(callback: CallbackQuery, edit=False):
             shop = await sync_to_async(Shop.objects.get)(id=data[2])
             builder = InlineKeyboardBuilder()
             announces = await sync_to_async(AnnounceText.objects.filter)(shop=shop)
+            if not announces:
+                await sync_to_async(AnnounceText.objects.create)(shop=shop)
+                await sync_to_async(AnnounceText.objects.create)(shop=shop)
+                await sync_to_async(AnnounceText.objects.create)(shop=shop)
+                announces = await sync_to_async(AnnounceText.objects.filter)(shop=shop)
             if announces:
                 builder.add(InlineKeyboardButton(text="🗣 Анонсы", callback_data=f"admin_editannounce_{shop.id}"))
             builder.add(InlineKeyboardButton(text="⚙ Конфигурации [В раз...]", callback_data=f"admin_editconf_{shop.id}"))

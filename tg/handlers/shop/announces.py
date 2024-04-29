@@ -89,9 +89,9 @@ async def awaiting_announce_state(msg: Message, bot: Bot, state: FSMContext):
     print(announce_id)
     user = await sync_to_async(TelegramUser.objects.get)(user_id=msg.from_user.id)
     announce = await sync_to_async(AnnounceText.objects.get)(id=announce_id)
-    if user.is_shop:
+    if user.is_shop or user.is_admin:
         try:
-            shop = await sync_to_async(Shop.objects.get)(owner=user)
+            shop = await sync_to_async(Shop.objects.get)(id=announce.shop.id)
             if announce.shop == shop:
                 announce.from_chat_id = msg.chat.id
                 announce.message_id = msg.message_id

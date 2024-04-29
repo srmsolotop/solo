@@ -30,8 +30,8 @@ async def send_periodic_message(bot: Bot):
                                 builder.add(InlineKeyboardButton(text=f"{shop.title}",
                                                                   url=f"https://t.me/{bot_info.username}?start=getshop_{shop.id}"))
                                 await bot.copy_message(chat_id=chat.chat_id, from_chat_id=announce.from_chat_id, message_id=announce.message_id, reply_markup=builder.as_markup())
-                                await asyncio.sleep(1800)
+                                await asyncio.sleep(3000)
                             elif not announce.button:
                                 await bot.forward_message(chat_id=chat.chat_id, from_chat_id=announce.from_chat_id, message_id=announce.message_id)
-                                await asyncio.sleep(1800)
+                                await asyncio.sleep(3000)
         await asyncio.sleep(60)

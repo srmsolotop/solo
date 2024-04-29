@@ -108,6 +108,7 @@ async def start_command(msg: Message, state: FSMContext, bot: Bot, command: Comm
                 builder.add(InlineKeyboardButton(text=f"{i.username}", url=f"{i.link}"))
             builder.adjust(1)
             await msg.answer("Актуальные обемнники", reply_markup=builder.as_markup())
+            return
 
 
 
